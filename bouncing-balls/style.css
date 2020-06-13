@@ -31,3 +31,11 @@ p {
   right: 5px;
   color: #aaa;
 }
+
+img {
+    opacity: 0.25;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 100px;
+}

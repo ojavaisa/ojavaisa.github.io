@@ -66,10 +66,10 @@ class Ball extends Shape {
 
 				if (distance < this.size + balls[j].size) {
 					balls[j].color = this.color = 'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')';
-					// balls[j].velX = -(balls[j].velX); //this bit is extra...
-					// balls[j].velY = -(balls[j].velY); //make balls bounce off of each other
-					// this.velX = -(this.velX);         //balls still sometimes get stuck together
-					// this.velY = -(this.velY);
+					balls[j].velX = -(balls[j].velX); //this bit is extra...
+					balls[j].velY = -(balls[j].velY); //make balls bounce off of each other
+					this.velX = -(this.velX);         //balls still sometimes get stuck together
+					this.velY = -(this.velY);
 				}
 			}
 		}
