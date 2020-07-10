@@ -8,7 +8,7 @@
 
 <body>
     <script>
-        let promise1 = fetch('coffee.jpg');
+        let promise1 = fetch('cofee.jpg');
 
         let promise2 = promise1.then(response => {
             if(!response.ok) {
@@ -24,7 +24,11 @@
             image.src = objectURL;
             document.body.appendChild(image);
         });
-        
+
+        let errorCase = promise3.catch(e => {
+            console.log('Woops, there was an error with your fetch: ' + e.message);
+        });
+
     </script>
 </body>
 
