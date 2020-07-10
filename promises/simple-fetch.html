@@ -8,24 +8,19 @@
 
 <body>
     <script>
-        let promise1 = fetch('cofee.jpg');
-
-        let promise2 = promise1.then(response => {
+        fetch('coffee.jpg')
+        .then(response => {
             if(!response.ok) {
                 throw new Error(`HTTP Error! Status: ${response.status}`);
             } else {
                 return response.blob();
             }
-        });
-
-        let promise3 = promise2.then(myBlob => {
+        }).then(myBlob => {
             let objectURL = URL.createObjectURL(myBlob);
             let image = document.createElement('img');
             image.src = objectURL;
             document.body.appendChild(image);
-        });
-
-        let errorCase = promise3.catch(e => {
+        }).catch(e => {
             console.log('Woops, there was an error with your fetch: ' + e.message);
         });
 
