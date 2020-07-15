@@ -8,21 +8,62 @@
 
 <body>
     <script>
-        fetch('coffee.jpg')
-        .then(response => {
-            if(!response.ok) {
-                throw new Error(`HTTP Error! Status: ${response.status}`);
-            } else {
-                return response.blob();
-            }
-        }).then(myBlob => {
-            let objectURL = URL.createObjectURL(myBlob);
-            let image = document.createElement('img');
-            image.src = objectURL;
-            document.body.appendChild(image);
-        }).catch(e => {
-            console.log('Woops, there was an error with your fetch: ' + e.message);
+        function fetchAndDecode(url, type){
+            return fetch(url).then(response => {
+                if(!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                } else {
+                    if(type === 'blob') {
+                        return response.blob();
+                    } else if(type === 'text') {
+                        return response.text();
+                    }
+                }
+            }).catch(e => {
+                console-log(`There has been a problem with your fetch for resource "${url}": ` + e.message);
+            });
+        }
+
+        let coffee = fetchAndDecode('coffee.jpg', 'blob');
+        let tea = fetchAndDecode('tea.jpg', 'blob');
+        let description = fetchAndDecode('description.txt', 'text');
+
+        Promise.all([coffee, tea, description]).then(values => {
+            console.log(values);
+            // Store each value from promises in separate variables; create object URLs from the blobs
+            let objectURL1 = URL.createObjectURL(values[0]);
+            let objectURL2 = URL.createObjectURL(values[1]);
+            let descText = values[2];
+
+            // Display images in <img> elements
+            let image1 = document.createElement('img');
+            let image2 = document.createElement('img');
+            image1.src = objectURL1;
+            image2.src = objectURL2;
+            document.body.appendChild(image1);
+            document.body.appendChild(image2);
+
+            // Display text in paragraph
+            let para = document.createElement('p');
+            para.textContent = descText;
+            document.body.appendChild(para);
         });
+
+        // fetch('coffee.jpg')
+        // .then(response => {
+        //     if(!response.ok) {
+        //         throw new Error(`HTTP Error! Status: ${response.status}`);
+        //     } else {
+        //         return response.blob();
+        //     }
+        // }).then(myBlob => {
+        //     let objectURL = URL.createObjectURL(myBlob);
+        //     let image = document.createElement('img');
+        //     image.src = objectURL;
+        //     document.body.appendChild(image);
+        // }).catch(e => {
+        //     console.log('Woops, there was an error with your fetch: ' + e.message);
+        // });
 
     </script>
 </body>
