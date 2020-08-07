@@ -6,7 +6,8 @@
     <link href="youtube.css" rel="stylesheet">
   </head>
   <body>
-    <h1>YouTube video search</h1>
+    <h1>YouTube (cat) video search</h1>
+    <p>Only returns cat related results</p>
 
     <div class="wrapper">
 
@@ -77,6 +78,8 @@
         // use preventDefault() to stop form actually submitting
         e.preventDefault();
 
+        searchWords = searchTerm.value + ' cat';
+
         // create a search request using the Data API;
         var request = gapi.client.youtube.search.list({
           // set what kind of data the response will include
@@ -84,7 +87,7 @@
           // set the number of results that will be returned
           maxResults: 10,
           // set the search query to search for
-          q: searchTerm.value
+          q: searchWords
         });
 
         // send the request, and specify a function to run when the response returns
